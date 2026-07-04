@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Axom KART | Fresh groceries, delivered fast</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <!-- Razorpay & EmailJS -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="grcy.css">
+</head>
+<body>
+
+    <!-- STICKY HEADER -->
+    <header class="header">
+        <div class="logo-area">
+            <div class="logo-placeholder">
+<div class="logo-icon">
+    <img src="logo.jpg" alt="Logo" class="logo-img">
+</div>
+            </div>
+            <h1 class="brand-name">Axom <span>KART</span></h1>
+        </div>
+        <div class="cart-icon-top" id="cart-icon-top" onclick="openCheckoutModal()">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count-top">0</span>
+        </div>
+    </header>
+
+    <!-- MAIN PRODUCT SECTION -->
+    <main class="main-wrapper">
+        <div class="hero-message">
+            <i class="fas fa-map-marker-alt"></i> 
+            <span>Delivery within 5km | Fresh produce daily</span>
+        </div>
+        <div id="product-loader" class="loader-container">
+            <div class="spinner"></div>
+            <p>Loading farm-fresh products...</p>
+        </div>
+        <div class="products-grid" id="productContainer"></div>
+    </main>
+
+    <!-- FLOATING BOTTOM BAR (CART SUMMARY) -->
+    <div id="bottom-cart-bar" class="bottom-bar" style="display: none;">
+        <div class="cart-info">
+            <i class="fas fa-bag-shopping"></i>
+            <span id="items-in-cart">0 Items</span>
+            <span class="dot">•</span>
+            <span id="cart-total-price">₹0</span>
+        </div>
+        <button class="view-cart-btn" onclick="openCheckoutModal()">
+            View Cart &nbsp;<i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <!-- CHECKOUT MODAL (CART + PAYMENT) -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-receipt"></i> Your Order</h2>
+                <button class="close-modal" onclick="closeCheckoutModal()">&times;</button>
+            </div>
+            <div id="cart-items-list" class="cart-items-list"></div>
+            <div class="delivery-summary">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="modal-subtotal">₹0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Delivery Charge</span>
+                    <span id="modal-delivery">₹0</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span><strong>Total to Pay</strong></span>
+                    <span><strong id="modal-final-total">₹0</strong></span>
+                </div>
+            </div>
+
+<div class="customer-details">
+
+    <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input
+            type="text"
+            id="cust-name"
+            placeholder="Full Name"
+            autocomplete="name"
+        >
+    </div>
+
+    <div class="input-group">
+        <i class="fas fa-phone-alt"></i>
+        <input
+            type="tel"
+            id="cust-phone"
+            placeholder="Mobile Number"
+            autocomplete="tel"
+        >
+    </div>
+
+    <div class="input-group">
+        <i class="fas fa-location-dot"></i>
+
+        <input
+            type="text"
+            id="cust-address"
+            placeholder="Address (Optional)"
+            autocomplete="street-address"
+        >
+    </div>
+
+    <div id="location-status" class="location-status">
+        <i class="fas fa-location-dot"></i>
+        Detecting location...
+    </div>
+
+</div>
+
+
+
+            <button id="pay-btn" class="pay-button" disabled onclick="handlePayment()">
+                <i class="fas fa-rupee-sign"></i> Pay & Place Order
+            </button>
+            <button class="secondary-close" onclick="closeCheckoutModal()">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+<nav class="btm-nav">
+
+<a href="#" class="nav-btn active">
+<i class="fas fa-house"></i>
+<span>Home</span>
+</a>
+
+<a href="#" class="nav-btn">
+<i class="fas fa-location-dot"></i>
+<span>Track</span>
+</a>
+
+<a href="#" class="nav-btn">
+<i class="fas fa-address-book"></i>
+<span>Contact</span>
+</a>
+
+<div class="nav-indicator"></div>
+
+</nav>
+    <!-- SUCCESS TOAST NOTIFICATION -->
+    <div id="toast-message" class="toast-message"></div>
+
+    <script src="grcy.js"></script>
+</body>
+</html>
