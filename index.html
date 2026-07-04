@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Axom KART | Best Online Grocery Delivery</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo-area">
+            <div class="logo-icon">
+<div class="logo-icon">
+    <img src="logo.jpg" alt="Logo" class="logo-img">
+</div>
+            </div>
+            <div class="brand-container">
+                <h1 class="brand-name">Axom <span>KART</span></h1>
+            </div>
+        </div>
+        <div class="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-badge">0</span>
+        </div>
+    </header>
+<!-- HOME MINI CART MODAL -->
+
+<div id="home-cart-popup" class="home-cart-popup">
+
+    <div class="popup-content">
+
+        <div class="popup-header">
+
+            <h3>Your Cart</h3>
+
+            <button id="close-home-cart">&times;</button>
+
+        </div>
+
+        <div id="popup-cart-list"></div>
+
+        <div class="popup-total">
+            Total: ₹<span id="popup-total-price">0</span>
+        </div>
+
+        <button class="open-cart-btn"
+            onclick="window.location.href='/grocery/grocery.html'">
+
+            Open Full Cart
+
+        </button>
+
+    </div>
+
+</div>
+    <!-- Animated Alert Banner -->
+    <div class="alert-container">
+        <div class="alert-text">
+            <i class="fas fa-info-circle"></i> অনুগ্ৰহ কৰি মন কৰিব, এপ টো নতুন বাবে বৰ্তমান সময়ত আমি COD অৰ্ডাৰ লব নোৱাৰোঁ। • Free delivery above ₹499 • Fresh vegetables daily •
+        </div>
+    </div>
+
+    <!-- Hero Search Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h2>এতিয়া ঘৰতেই বহি বজাৰ কৰা <br>হৈ গল সহজ</h2>
+            <p>এক নতুন প্ৰচেষ্টাৰে, <span class="highlight"> 10 minutes Delevery</span></p>
+            <div class="delivery-badge">
+                <i class="fas fa-motorcycle"></i>
+                <span>Track Your Order </span>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-wrapper">
+        
+        <!-- Grocery Category -->
+        <section class="category-block">
+            <div class="category-header">
+                <h2><i class="fas fa-leaf"></i> Groceries& Essentials</h2>
+                <button class="view-all-btn" onclick="window.location.href='/grocery/grocery.html'">
+                    View All <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            <div class="items-scroll">
+                <div class="product-card" onclick="window.location.href='/grocery/grocery.html'">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=300&q=80" alt="Fresh Vegetables">
+                    </div>
+                    <p>Fresh Vegetables</p>
+                    <span class="price-tag">From ₹29</span>
+                </div>
+                <div class="product-card" onclick="window.location.href='/grocery/grocery.html'">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=300&q=80" alt="Rice & Grains">
+                    </div>
+                    <p>Rice & Grains</p>
+                    <span class="price-tag">From ₹45</span>
+                </div>
+                <div class="product-card" onclick="window.location.href='/grocery/grocery.html'">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=300&q=80" alt="Cooking Oil">
+                    </div>
+                    <p>Cooking Oil</p>
+                    <span class="price-tag">From ₹110</span>
+                </div>
+                <div class="product-card" onclick="window.location.href='/grocery/grocery.html'">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=300&q=80" alt="Spices">
+                    </div>
+                    <p>Spices & Masala</p>
+                    <span class="price-tag">From ₹35</span>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+
+
+        <!-- Cold Drinks Category -->
+        <section class="category-block">
+            <div class="category-header">
+                <h2><i class="fas fa-wine-bottle"></i> Cold Drinks & Beverages</h2>
+                <button class="view-all-btn" onclick="window.location.href='/grocery/grocery.html'">
+                    View All <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            <div class="items-scroll">
+                <div class="product-card" onclick="window.location.href='/grocery/grocery.html'">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=300&q=80" alt="Soft Drinks">
+                    </div>
+                    <p>Soft Drinks</p>
+                    <span class="price-tag">From ₹20</span>
+                </div>
+                <div class="product-card" onclick="window.location.href='/grocery/grocery.html'">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=300&q=80" alt="Fruit Juice">
+                    </div>
+                    <p>Fruit Juice</p>
+                    <span class="price-tag">From ₹60</span>
+                </div>
+                <div class="product-card" onclick="window.location.href='/grocery/grocery.html'">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=300&q=80" alt="Energy Drink">
+                    </div>
+                    <p>Energy Drink</p>
+                    <span class="price-tag">From ₹75</span>
+                </div>
+                <div class="product-card" onclick="window.location.href='/grocery/grocery.html'">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1600965962109-9d260a718b6d?auto=format&fit=crop&w=300&q=80" alt="Coconut Water">
+                    </div>
+                    <p>Coconut Water</p>
+                    <span class="price-tag">From ₹45</span>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+
+        <!-- Snacks Category -->
+        <section class="category-block">
+            <div class="category-header">
+                <h2><i class="fas fa-cookie-bite"></i> Snacks & Packaged Food</h2>
+                <button class="view-all-btn" onclick="window.location.href='/grocery/grocery.html'">
+                    View All <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            <div class="items-scroll">
+                <div class="product-card" onclick="window.location.href='/grocery/grocery.html'">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1627308597006-5ce8c6dd4c6d?auto=format&fit=crop&w=300&q=80" alt="Chips">
+                    </div>
+                    <p>Potato Chips</p>
+                    <span class="price-tag">₹20</span>
+                </div>
+                <div class="product-card" onclick="window.location.href='/grocery/grocery.html'">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1599490659213-e2b9527bd087?auto=format&fit=crop&w=300&q=80" alt="Biscuits">
+                    </div>
+                    <p>Biscuits</p>
+                    <span class="price-tag">₹25</span>
+                </div>
+                <div class="product-card" onclick="window.location.href='/grocery/grocery.html'">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1584308972272-4e4e0c6786e0?auto=format&fit=crop&w=300&q=80" alt="Noodles">
+                    </div>
+                    <p>Instant Noodles</p>
+                    <span class="price-tag">₹45</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Daily Essentials Banner -->
+        <section class="essentials-banner" onclick="window.location.href='/grocery/grocery.html'">
+            <div class="banner-content">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <h3>Daily Essentials</h3>
+                    <p>Milk, Bread, Eggs & More</p>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </section>
+
+        <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                   <div class="logo-icon">
+    <img src="logo.jpg" alt="Logo" class="logo-img">
+</div>
+                    <h3>Axom KART</h3>
+                </div>
+                <p>Devloped by BORAH DIGITAL SOLUTIONS × ARUP BORAH</p>
+                <div class="footer-links">
+                    <span>About Us</span>
+                    <span>|</span>
+                    <span>Contact</span>
+                    <span>|</span>
+                    <span>FAQs</span>
+                </div>
+                <div class="namaste">
+                    <i class="fas fa-hands-clapping"></i>
+                    <h4>ধন্যবাদ | Thank You</h4>
+                    <p>Visit Again | আকৌ আহিব🙏</p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+<nav class="btm-nav">
+
+<a href="#" class="nav-btn active">
+<i class="fas fa-house"></i>
+<span>Home</span>
+</a>
+
+<a href="#" class="nav-btn">
+<i class="fas fa-location-dot"></i>
+<span>Track</span>
+</a>
+
+<a href="myorders.html" class="nav-btn">
+<i class="fas fa-address-book"></i>
+<span>Orders</span>
+</a>
+
+<div class="nav-indicator"></div>
+
+</nav>
+    <script src="script.js"></script>
+</body>
+</html>

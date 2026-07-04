@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Axom Admin Panel</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif
+}
+
+body{
+background:#f5f7fb;
+padding:16px
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px
+}
+
+.top h1{
+font-size:1.3rem;
+font-weight:800
+}
+
+.status-box{
+background:#fff;
+padding:8px 14px;
+border-radius:40px;
+font-size:10px;
+font-weight:700;
+box-shadow:0 2px 8px rgba(0,0,0,.05)
+}
+
+#orders{
+display:flex;
+flex-direction:column;
+gap:16px
+}
+
+.card{
+background:#fff;
+padding:18px;
+border-radius:24px;
+box-shadow:0 4px 14px rgba(0,0,0,.05)
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:10px
+}
+
+.order-id{
+font-size:.78rem;
+color:#666
+}
+
+.badge{
+padding:6px 12px;
+border-radius:30px;
+font-size:.72rem;
+font-weight:700
+}
+
+.pending{
+background:#fff7ed;
+color:#ea580c
+
+}
+
+.accepted{
+background:#ecfdf5;
+color:#16a34a;
+
+}
+
+.delivered{
+background:#dbeafe;
+color:#2563eb
+
+}
+
+.name{
+font-size:1rem;
+font-weight:800;
+margin-bottom:4px
+}
+
+.addr{
+font-size:.82rem;
+color:#555;
+margin-bottom:12px
+}
+
+.items{
+background:#f8fafc;
+padding:12px;
+border-radius:16px;
+margin-bottom:14px
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+font-size:.82rem;
+margin-bottom:6px
+}
+
+.total{
+margin-top:8px;
+font-weight:800;
+color:#16a34a
+}
+
+.map-btn{
+display:inline-flex;
+align-items:center;
+gap:6px;
+padding:10px 14px;
+background:#111827;
+color:#fff;
+text-decoration:none;
+border-radius:40px;
+font-size:.8rem;
+margin-bottom:14px
+}
+
+.btns{
+display:flex;
+gap:10px
+}
+
+.btn{
+flex:1;
+padding:12px;
+border-radius:16px;
+font-weight:700;
+text-decoration:none;
+text-align:center;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:.9rem;
+color:#fff;
+border:none;
+cursor:pointer
+}
+
+.accept-btn{
+background:#16a34a;
+color:#fff
+}
+
+.done-btn{
+background:#2563eb;
+color:#fff
+}
+
+.empty{
+text-align:center;
+padding:40px;
+color:#777
+}
+
+</style>
+</head>
+<body>
+
+<div class="top">
+
+<h1>Orders</h1>
+
+<div class="status-box">
+Admin Panel
+</div>
+
+</div>
+
+<div id="orders">
+
+<div class="empty">
+Loading Orders...
+</div>
+
+</div>
+
+<script>
+
+const SHEET_API="https://script.google.com/macros/s/AKfycbxi5yIaKyLxVNNWiAIwhJhUD3yw-rv6fz8pP6dn7-_EKrwpkt_VJpPcOFZ7Uo40uitb/exec";
+
+const orderBox=document.getElementById('orders');
+
+async function loadOrders(){
+
+try{
+
+const res=await fetch(SHEET_API);
+
+const data=await res.json();
+
+let html='';
+
+data.reverse().forEach((o,i)=>{
+
+const status=(o.status||'Pending')
+.toLowerCase();
+
+html+=`
+
+<div class="card">
+
+<div class="row">
+
+<div class="order-id">
+Order #${i+1}
+</div>
+
+<div class="badge ${status}">
+${o.status||'Order Placed'}
+</div>
+
+</div>
+
+<div class="name">
+${o.customerName}
+</div>
+
+<div class="addr">
+
+📞 ${o.phone}<br><br>
+
+📍 ${o.address}<br><br>
+
+🕒 ${o.time.replace("T"," , ").split(".")[0]} <br><br>
+
+💳 ${o.paymentId}<br><br>
+
+🚚 Delivery : ₹${o.deliveryCharge}
+
+</div>
+
+<div class="items">
+
+<div style="white-space:pre-line">
+${o.items}
+</div>
+
+<div class="total">
+Total : ₹${o.total}
+</div>
+
+</div>
+
+<a class="map-btn"
+href="${o.googleMaps}"
+target="_blank">
+
+<i class="fas fa-location-dot"></i>
+
+Customer Location
+
+</a>
+<div class="btns">
+
+<a class="btn accept-btn"
+
+target="_blank"
+
+href="https://docs.google.com/spreadsheets/d/18x3vsMvgtw-APztgJm1GEDOzZr2K6iX0AlJH8GhCuCQ/edit#gid=0&range=K${o.row}">
+
+Accept Order
+
+</a>
+
+<a class="btn done-btn"
+
+target="_blank"
+
+href="https://docs.google.com/spreadsheets/d/18x3vsMvgtw-APztgJm1GEDOzZr2K6iX0AlJH8GhCuCQ/edit#gid=0&range=K${o.row}">
+
+Order Delivered
+
+</a>
+
+</div>
+
+</div>
+`;
+});
+
+orderBox.innerHTML=html||`
+<div class="empty">
+No Orders Found
+</div>
+`;
+
+}catch(err){
+
+orderBox.innerHTML=`
+<div class="empty">
+Failed To Load Orders
+</div>
+`;
+
+console.log(err);
+}
+}
+
+async function setStatus(row,status){
+
+await fetch(SHEET_API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+action:"status",
+
+row:row,
+
+status:status
+
+})
+
+});
+
+loadOrders();
+}
+
+loadOrders();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>Track Order | AxomKART</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif
+}
+
+body{
+background:#f4f7fb;
+padding:16px;
+color:#111827
+}
+
+.top{
+text-align:center;
+margin-bottom:22px
+}
+
+.top h1{
+font-size:1.6rem;
+font-weight:800;
+color:#27ae60
+}
+
+.top p{
+font-size:.82rem;
+color:#666;
+margin-top:5px
+}
+
+.search-box{
+background:#fff;
+padding:18px;
+border-radius:22px;
+box-shadow:0 4px 14px rgba(0,0,0,.05);
+margin-bottom:20px
+}
+
+.input-group{
+background:#f3f4f6;
+border-radius:16px;
+padding:0 16px;
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:14px
+}
+
+.input-group i{
+color:#27ae60
+}
+
+.input-group input{
+border:none;
+background:none;
+width:100%;
+height:54px;
+font-size:1rem;
+outline:none
+}
+
+.track-btn{
+width:100%;
+border:none;
+height:52px;
+border-radius:16px;
+background:#27ae60;
+color:#fff;
+font-size:1rem;
+font-weight:700;
+cursor:pointer
+}
+
+.note{
+font-size:.75rem;
+color:#666;
+margin-top:8px;
+text-align:center
+}
+
+#result{
+display:flex;
+flex-direction:column;
+gap:14px
+}
+
+.card{
+background:#fff;
+padding:14px;
+border-radius:18px;
+box-shadow:0 2px 10px rgba(0,0,0,.05)
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+align-items:center
+}
+
+.badge{
+padding:6px 12px;
+border-radius:30px;
+font-size:.72rem;
+font-weight:700
+}
+
+.pending{
+background:#fff7ed;
+color:#ea580c
+}
+
+.accepted{
+background:#ecfdf5;
+color:#16a34a
+}
+
+.delivered{
+background:#dbeafe;
+color:#2563eb
+}
+
+.label{
+font-size:.75rem;
+color:#666;
+margin-top:10px
+}
+
+.value{
+font-size:.85rem;
+font-weight:600;
+margin-top:3px;
+line-height:1.5
+}
+
+.items{
+background:#f9fafb;
+padding:12px;
+border-radius:14px;
+margin-top:10px;
+white-space:pre-line;
+line-height:1.6;
+font-size:.82rem
+}
+
+.empty{
+text-align:center;
+padding:40px;
+color:#666
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="top">
+
+<h1>Track Your Order</h1>
+
+<p>
+Enter your registered mobile number
+</p>
+
+</div>
+
+<div class="search-box">
+
+<div class="input-group">
+
+<i class="fas fa-phone"></i>
+
+<input
+type="tel"
+id="phone"
+placeholder="Enter 10 digit mobile number"
+maxlength="10"
+inputmode="numeric"
+>
+
+</div>
+
+<button class="track-btn"
+onclick="trackOrder()">
+
+Track My Order
+
+</button>
+
+<div class="note">
+
+Mobile format:
+xxxxxxxxxx (without +91)
+
+</div>
+
+</div>
+
+<div id="result"></div>
+
+<script>
+
+const API=
+"https://script.google.com/macros/s/AKfycbxi5yIaKyLxVNNWiAIwhJhUD3yw-rv6fz8pP6dn7-_EKrwpkt_VJpPcOFZ7Uo40uitb/exec";
+
+document
+.getElementById('phone')
+.addEventListener('input',e=>{
+
+e.target.value=
+e.target.value
+.replace(/\D/g,'')
+.slice(0,10);
+
+});
+
+async function trackOrder(){
+
+const phone=
+document.getElementById('phone').value.trim();
+
+const result=
+document.getElementById('result');
+
+if(phone.length!==10){
+
+alert(
+"Enter valid 10 digit mobile number"
+);
+
+return;
+}
+
+result.innerHTML=`
+<div class="empty">
+Loading Orders...
+</div>
+`;
+
+try{
+
+const res=
+await fetch(API);
+
+const data=
+await res.json();
+
+const orders=
+data.filter(
+o=>o.phone==phone
+);
+
+if(!orders.length){
+
+result.innerHTML=`
+<div class="empty">
+No Orders Found
+</div>
+`;
+
+return;
+}
+
+let html='';
+
+orders.reverse().forEach(o=>{
+
+const status=
+(o.status||'Pending')
+.toLowerCase();
+
+html+=`
+
+<div class="card">
+
+<div class="row">
+
+<div>
+
+<div style="
+font-size:1rem;
+font-weight:800;
+margin-bottom:4px;
+">
+${o.customerName}
+</div>
+
+<div style="
+font-size:.78rem;
+color:#666;
+">
+${o.phone}
+</div>
+
+</div>
+
+<div class="badge ${status}">
+${o.status}
+</div>
+
+</div>
+
+<div class="label">
+📦 Items
+</div>
+
+<div class="items">
+${o.items}
+</div>
+
+<div class="label">
+📍 Address
+</div>
+
+<div class="value">
+${o.address}
+</div>
+
+<div class="row"
+style="margin-top:14px;">
+
+<div style="
+font-size:.78rem;
+color:#666;
+">
+${o.time
+.replace("T"," , ")
+.split(".")[0]}
+</div>
+
+<div style="
+font-size:1rem;
+font-weight:800;
+color:#16a34a;
+">
+₹${o.total}
+</div>
+
+</div>
+
+</div>
+`;
+});
+
+result.innerHTML=html;
+
+}catch(err){
+
+result.innerHTML=`
+<div class="empty">
+Failed To Load Orders
+</div>
+`;
+
+console.log(err);
+}
+}
+
+</script>
+
+</body>
+</html>
